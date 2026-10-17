@@ -1,0 +1,3 @@
+PASS Jinja parse: 62 templates
+PASS PHP syntax: 93 files
+PASS CI workflow YAML: 2 jobs; MySQL service pinned to mysql:8.0

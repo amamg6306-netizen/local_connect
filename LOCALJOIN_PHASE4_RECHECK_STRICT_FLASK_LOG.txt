@@ -1,0 +1,3 @@
+BLOCKED: Flask integration tests have NOT run; missing required modules: Flask, Flask-SQLAlchemy, Flask-WTF, WTForms, PyMySQL, bcrypt, PyNaCl, gunicorn
+Install project requirements with: python -m pip install -r requirements.txt
+No tests were marked as PASS. This strict gate returns failure (exit 2).

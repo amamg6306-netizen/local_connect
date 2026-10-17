@@ -1,0 +1,69 @@
+Localjoin.in Phase 3 — 2026-10-17 — local checks
+CMD: python -m compileall -q app.py routes services models config utils scripts tests/python
+EXIT:0
+CMD: python Jinja2 template parser (all templates)
+templates parsed: 62
+EXIT:0
+CMD: node --check assets/js/app.js
+EXIT:0
+CMD: node tests/js/dependent_dropdown.test.js
+PASS dependent dropdown rebuild, selection preservation, and empty states
+EXIT:0
+CMD: python -m pytest -q tests/python --ignore=tests/python/test_localjoin_runtime_regressions.py
+.......sssss.......ss........sssssss..........sss..... [ 48%]
+...........................sss...........................                [100%]
+91 passed, 20 skipped, 18 subtests passed in 1.22s
+EXIT:0
+CMD: php tests/phase1/php_helper_smoke.php
+PASS: helper smoke tests (6 checks)
+EXIT:0
+CMD: php tests/phase2/php_security_helpers.php
+PASS: base32 round trip
+PASS: TOTP format
+PASS: TOTP deterministic for same step
+PASS: secret encrypt/decrypt round trip
+PASS: safe admin return allowed
+PASS: external return rejected
+PASS: length validation
+EXIT:0
+CMD: php tests/phase3/php_payment_helpers.php
+PASS: valid UPI ID accepted
+PASS: URL is not accepted as UPI ID
+PASS: invalid UPI ID rejected
+PASS: INR normalization
+PASS: unsupported currency rejected
+PASS: gateway incomplete without server secrets
+PASS: gateway configured when all required environment values exist
+PASS: gateway status never returns secret values
+PASS: audit snapshot excludes unapproved secret/card fields
+PASS: manual UPI configuration check
+PASS: manual bank configuration check
+EXIT:0
+CMD: php tests/phase4/php_billing_helpers.php
+PASS: money converted to minor units exactly
+PASS: minor units converted to decimal exactly
+PASS: money rejects >2 decimals
+PASS: server price/tax snapshot math
+PASS: Razorpay callback signature accepted
+PASS: bad callback signature rejected
+PASS: webhook HMAC accepted
+PASS: bad webhook HMAC rejected
+PASS: live key blocked while PAYMENT_ALLOW_LIVE=false
+PASS: live credential guard throws
+PASS: checkout token stored only as hash
+EXIT:0
+CMD: php tests/phase6/php_security_helpers.php
+PASS: CSP nonce is non-empty and stable within a request
+PASS: CSP binds scripts to the request nonce
+PASS: CSP blocks inline event-handler attributes
+PASS: CSP prevents framing
+PASS: HSTS builder returns a max-age directive
+PASS: log redaction removes common credential shapes
+PASS: safe local path allows local route
+PASS: safe local path rejects external URL
+EXIT:0
+CMD: python scripts/run_runtime_tests.py (STRICT runtime, no silent skipped accepted)
+BLOCKED: Flask integration tests have NOT run; missing required modules: Flask, Flask-SQLAlchemy, Flask-WTF, WTForms, PyMySQL, bcrypt, PyNaCl, gunicorn
+Install project requirements with: python -m pip install -r requirements.txt
+No tests were marked as PASS. This strict gate returns failure (exit 2).
+EXIT:2

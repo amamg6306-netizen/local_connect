@@ -1,0 +1,11 @@
+File,Change
+.env.example,MODIFIED
+PHASE5_LOCALJOIN.md,ADDED
+app.py,MODIFIED
+config/settings.py,MODIFIED
+docs/DEPLOYMENT.md,MODIFIED
+render.yaml,MODIFIED
+routes/admin.py,MODIFIED
+tests/python/test_phase5_security_hardening_offline.py,ADDED
+tests/python/test_phase5_security_hardening_runtime.py,ADDED
+utils/account_status.py,ADDED

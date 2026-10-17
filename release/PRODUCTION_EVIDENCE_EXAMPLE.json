@@ -1,0 +1,15 @@
+{
+  "source_commit_sha": "REPLACE_WITH_40_CHARACTER_COMMIT_SHA_FROM_GITHUB",
+  "artifact_sha256": "REPLACE_WITH_SHA256_OF_THE_EXACT_RELEASE_CANDIDATE_ZIP",
+  "checks": {
+    "flask_github_actions": {"status": "pending", "evidence_url": ""},
+    "mysql8_github_actions": {"status": "pending", "evidence_url": ""},
+    "render_staging_flows": {"status": "pending", "evidence_url": ""},
+    "resend_inbox_receipt": {"status": "pending", "evidence_url": ""},
+    "mobile_desktop_browser": {"status": "pending", "evidence_url": ""},
+    "privacy_terms_approval": {"status": "pending", "evidence_url": ""},
+    "verified_database_backup": {"status": "pending", "evidence_url": ""},
+    "rollback_plan": {"status": "pending", "evidence_url": ""},
+    "render_environment_review": {"status": "pending", "evidence_url": ""}
+  }
+}

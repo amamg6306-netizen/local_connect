@@ -1,0 +1,105 @@
+Localjoin Phase 4 local execution report
+No remote production calls or writes were made.
+
+CHECK: Python syntax
+CMD: /opt/pyvenv/bin/python -m compileall -q app.py routes services models config utils scripts tests/python
+EXIT: 0
+
+
+
+CHECK: Jinja template parse
+CMD: /opt/pyvenv/bin/python -c from pathlib import Path; from jinja2 import Environment; env=Environment(); pages=list(Path('templates').rglob('*.html')); [env.parse(p.read_text(encoding='utf-8')) for p in pages]; print('templates parsed:',len(pages))
+EXIT: 0
+templates parsed: 62
+
+
+CHECK: Node app syntax
+CMD: node --check assets/js/app.js
+EXIT: 0
+
+
+
+CHECK: Node dropdown runtime
+CMD: node tests/js/dependent_dropdown.test.js
+EXIT: 0
+PASS dependent dropdown rebuild, selection preservation, and empty states
+
+
+CHECK: Offline Python tests (runtime modules excluded, zero skips)
+CMD: /opt/pyvenv/bin/python -m pytest -q tests/python/test_phase2_navigation_regression.py tests/python/test_phase4_runtime_configuration_offline.py tests/python/test_final_recheck_static.py tests/python/test_phase3_audit_static.py tests/python/test_phase3_database_static.py tests/python/test_phase4_auth_static.py tests/python/test_phase5_functional_static.py tests/python/test_phase6_frontend_parity_static.py tests/python/test_phase7_production_static.py tests/python/test_phase8_verification_static.py tests/python/test_phase9_release_static.py tests/python/test_pre_phase8_recheck_static.py
+EXIT: 0
+...................................................... [ 56%]
+.........................................                                [100%]
+95 passed, 18 subtests passed in 5.37s
+
+
+CHECK: PHP helper baseline
+CMD: php tests/phase1/php_helper_smoke.php
+EXIT: 0
+PASS: helper smoke tests (6 checks)
+
+
+CHECK: PHP security helpers
+CMD: php tests/phase2/php_security_helpers.php
+EXIT: 0
+PASS: base32 round trip
+PASS: TOTP format
+PASS: TOTP deterministic for same step
+PASS: secret encrypt/decrypt round trip
+PASS: safe admin return allowed
+PASS: external return rejected
+PASS: length validation
+
+
+CHECK: PHP payment helpers
+CMD: php tests/phase3/php_payment_helpers.php
+EXIT: 0
+PASS: valid UPI ID accepted
+PASS: URL is not accepted as UPI ID
+PASS: invalid UPI ID rejected
+PASS: INR normalization
+PASS: unsupported currency rejected
+PASS: gateway incomplete without server secrets
+PASS: gateway configured when all required environment values exist
+PASS: gateway status never returns secret values
+PASS: audit snapshot excludes unapproved secret/card fields
+PASS: manual UPI configuration check
+PASS: manual bank configuration check
+
+
+CHECK: PHP billing helpers
+CMD: php tests/phase4/php_billing_helpers.php
+EXIT: 0
+PASS: money converted to minor units exactly
+PASS: minor units converted to decimal exactly
+PASS: money rejects >2 decimals
+PASS: server price/tax snapshot math
+PASS: Razorpay callback signature accepted
+PASS: bad callback signature rejected
+PASS: webhook HMAC accepted
+PASS: bad webhook HMAC rejected
+PASS: live key blocked while PAYMENT_ALLOW_LIVE=false
+PASS: live credential guard throws
+PASS: checkout token stored only as hash
+
+
+CHECK: PHP hardening helpers
+CMD: php tests/phase6/php_security_helpers.php
+EXIT: 0
+PASS: CSP nonce is non-empty and stable within a request
+PASS: CSP binds scripts to the request nonce
+PASS: CSP blocks inline event-handler attributes
+PASS: CSP prevents framing
+PASS: HSTS builder returns a max-age directive
+PASS: log redaction removes common credential shapes
+PASS: safe local path allows local route
+PASS: safe local path rejects external URL
+
+
+CHECK: Strict Flask runtime gate (must fail if unavailable/skipped)
+CMD: /opt/pyvenv/bin/python scripts/run_runtime_tests.py
+EXIT: 2
+
+BLOCKED: Flask integration tests have NOT run; missing required modules: Flask, Flask-SQLAlchemy, Flask-WTF, WTForms, PyMySQL, bcrypt, PyNaCl, gunicorn
+Install project requirements with: python -m pip install -r requirements.txt
+No tests were marked as PASS. This strict gate returns failure (exit 2).

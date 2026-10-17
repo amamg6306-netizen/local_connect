@@ -1,0 +1,57 @@
+{% extends 'base.html' %}{% block content %}{% if kind == 'about' %}<main class="container py-5"><div class="row justify-content-center"><div class="col-lg-9"><div class="soft-card p-4 p-md-5"><span class="eyebrow">ABOUT US</span><h1 class="display-5 fw-bold mt-2">Local discovery with a service marketplace built in.</h1><p class="lead text-secondary">Localjoin helps customers discover local professionals and businesses, compare profiles and reviews, and send service requests from one place.</p><div class="row g-3 mt-3"><div class="col-md-4"><div class="feature-tile"><i class="fa-solid fa-magnifying-glass"></i><h5>Discover</h5><p>Search by service, category and selected service area.</p></div></div><div class="col-md-4"><div class="feature-tile"><i class="fa-solid fa-user-check"></i><h5>Compare</h5><p>Review services, prices, ratings and Localjoin verification status.</p></div></div><div class="col-md-4"><div class="feature-tile"><i class="fa-solid fa-briefcase"></i><h5>Request</h5><p>Send and track service requests with a complete status history.</p></div></div></div><hr class="my-4"><p class="mb-0 text-muted">Verification on Localjoin means the profile was approved by a platform administrator. It does not represent government certification or a professional licence.</p></div></div></div></main>{% elif kind == 'privacy' %}
+<main class="container py-5">
+  <article class="legal-card">
+    <h1>Privacy Policy</h1>
+    <p>Localjoin is a local services marketplace where customers can discover providers and businesses, create requests, and manage account activity. This policy explains the types of information used by the platform and the choices available to users.</p>
+
+    <h2>Information we collect</h2>
+    <p>When you use Localjoin, we may process your name, email address, phone number, account role, profile image, and service-area details such as city, state, area and pincode. Providers and businesses may provide service descriptions, prices, contact details, availability, portfolio images, and business details. Customers may submit service requests, descriptions, location preferences and scheduling information. Reviews, messages sent through the contact form, favorites, reports, notifications, and relevant account activity may also be processed.</p>
+
+    <h2>How we use information</h2>
+    <p>We use account information to manage registration, login and email verification; display selected public profile details; connect customers with eligible service providers or businesses; maintain service-request and status histories; provide support; moderate reports and reviews; protect accounts from abuse; and operate billing or subscriptions when those features are available.</p>
+
+    <h2>Visibility and sharing</h2>
+    <p>Information placed in public provider or business profiles, such as business names, services, service areas, prices and published reviews, may be visible to visitors. Information included in a service request may be made available to the relevant provider or business so they can respond. Other information may be shared with infrastructure, hosting, email-delivery, storage or payment partners where required for the features you use. We may disclose information where required by applicable law or a valid legal request.</p>
+
+    <h2>Location information</h2>
+    <p>Localjoin primarily uses location or service-area fields entered by users. Latitude and longitude fields may also be saved when supplied; they are not a requirement for ordinary service discovery. Avoid placing unnecessary private address details in public profile descriptions.</p>
+
+    <h2>Cookies and security</h2>
+    <p>Essential session and security-related cookies help keep users signed in and protect forms. The application stores password hashes rather than plain-text passwords and uses access controls for restricted pages. No internet service can guarantee absolute security. Do not share passwords or verification links with others.</p>
+
+    <h2>Retention and account requests</h2>
+    <p>Account, transaction, moderation and service-request records are kept for as long as reasonably necessary for platform operations, resolving disputes, security and applicable legal obligations. You may contact Localjoin to ask about access, correction or deletion of personal information. Some records may need to be retained where legally required or necessary to resolve legitimate issues. Requests will be assessed in accordance with applicable law.</p>
+
+    <h2>Contact and updates</h2>
+    <p>For privacy questions or account-data requests, use the <a href="{{ lc_url('contact.php') }}">Localjoin contact form</a>. We may update this policy as features or requirements change. Material changes should be communicated through an appropriate platform notice.</p>
+  </article>
+</main>
+{% else %}
+<main class="container py-5">
+  <article class="legal-card">
+    <h1>Terms of Use</h1>
+    <p>These terms explain the basic conditions for using Localjoin's service-discovery and request platform. By using Localjoin, you agree to follow applicable laws and the platform rules described here.</p>
+
+    <h2>Marketplace services</h2>
+    <p>Localjoin enables customers to find independent service providers and businesses and to send requests. Providers and businesses are responsible for their own offerings, qualifications, schedules, service terms and work. A Localjoin profile-verification badge indicates platform-admin approval; it is not a government licence, a professional certification, or a guarantee of service quality.</p>
+
+    <h2>Accounts and accurate information</h2>
+    <p>Use accurate registration and contact details, protect your credentials, and keep profile or service descriptions up to date. Do not impersonate another person or company or create accounts to circumvent restrictions. Access to certain features depends on account status, role and verification.</p>
+
+    <h2>Requests and service arrangements</h2>
+    <p>A request or listing does not by itself create a guaranteed booking or a promise that a provider will accept the work. Customers and providers should confirm scope, schedule, total price and any safety requirements directly before proceeding. Users must not submit misleading, unlawful or abusive service requests.</p>
+
+    <h2>Payments and subscriptions</h2>
+    <p>Where paid plans, payment methods or subscriptions are offered, the current checkout screens and applicable plan terms describe available amounts, periods and payment instructions. Availability of payment methods may differ by account and deployment configuration. Do not treat a submitted payment reference as confirmation of successful payment; entitlement depends on the platform's verification or reconciliation process. For billing questions, contact Localjoin support through the <a href="{{ lc_url('contact.php') }}">contact page</a>.</p>
+
+    <h2>Reviews, content and moderation</h2>
+    <p>Provide truthful reviews based on eligible completed requests. Do not upload material that is unlawful, deceptive, discriminatory, invasive of others' privacy, or that infringes another person's rights. Localjoin may review reports, moderate content, restrict profiles or accounts, and act to protect other users or comply with the law.</p>
+
+    <h2>Service disputes and platform limitations</h2>
+    <p>Individual providers and businesses are responsible for the services they agree to deliver. The platform cannot guarantee provider availability, completion of requests, professional qualifications or the accuracy of every user listing. If something goes wrong, keep a record of the agreement and contact the other party or <a href="{{ lc_url('contact.php') }}">Localjoin support</a> where appropriate. Nothing in these terms is intended to limit rights that cannot lawfully be excluded.</p>
+
+    <h2>Changes and contact</h2>
+    <p>Localjoin may update features and these terms as its marketplace evolves. For questions about account access, content removal or platform rules, use the <a href="{{ lc_url('contact.php') }}">contact form</a>.</p>
+  </article>
+</main>
+{% endif %}{% endblock %}

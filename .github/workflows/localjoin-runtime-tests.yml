@@ -1,0 +1,94 @@
+name: Localjoin strict runtime tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install application and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pytest
+      - name: Compile application Python
+        run: python -m compileall -q app.py routes services models config utils scripts
+      - name: Test client-side dropdown behavior
+        run: |
+          node --check assets/js/app.js
+          node tests/js/dependent_dropdown.test.js
+      - name: Actual model ORM + offline MySQL DDL compile checks
+        run: python scripts/run_offline_model_integration.py
+      - name: Phase 6 read-only migration and approval safety tests
+        run: python -m pytest -q tests/python/test_phase6_migration_safety_offline.py
+      - name: Phase 7 and 8 offline discovery / request recovery regressions
+        run: python -m pytest -q tests/python/test_phase7_seo_discovery_offline.py tests/python/test_phase8_request_recovery_offline.py
+      - name: Flask / SQLite runtime regression suite (zero skips permitted)
+        env:
+          APP_ENV: testing
+          APP_URL: https://localjoin.in
+          DATABASE_URL: 'sqlite:///:memory:'
+          APP_MAIL_DRIVER: log
+          APP_REQUIRE_EMAIL_VERIFICATION: 'true'
+          UPLOAD_DISK_REQUIRED: 'false'
+          FORCE_HTTPS: 'false'
+        run: python -m scripts.run_runtime_tests
+
+  disposable-mysql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci_only_root_password
+          MYSQL_DATABASE: localjoin_ci
+          MYSQL_USER: localjoin_ci
+          MYSQL_PASSWORD: ci_only_password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -pci_only_root_password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Install pinned Python application dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run disposable MySQL 8 integration smoke (not a production DB)
+        env:
+          APP_ENV: testing
+          APP_URL: https://localjoin.in
+          # app.py builds its BaseConfig at import time; keep it on the disposable DB.
+          DATABASE_URL: 'mysql+pymysql://localjoin_ci:ci_only_password@127.0.0.1:3306/localjoin_ci'
+          UPLOAD_DISK_REQUIRED: 'false'
+          FORCE_HTTPS: 'false'
+          AUTO_INIT_SCHEMA: 'false'
+          LOCALJOIN_DISPOSABLE_DB_URL: 'mysql+pymysql://localjoin_ci:ci_only_password@127.0.0.1:3306/localjoin_ci'
+          LOCALJOIN_ALLOW_DISPOSABLE_DB_WRITES: YES_I_UNDERSTAND_DISPOSABLE
+        run: python -m scripts.run_disposable_mysql_smoke
+
+  release-content:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Production public-content release gate (blocks placeholders)
+        run: python scripts/check_release_content.py

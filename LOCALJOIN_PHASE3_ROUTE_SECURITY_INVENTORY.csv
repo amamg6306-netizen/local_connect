@@ -1,0 +1,71 @@
+module,line,path,method,access_guard
+admin.py,31,/admin/mfa.php,GET/POST,role restricted
+admin.py,124,/admin/reauth.php,GET/POST,role restricted
+admin.py,161,/admin/index.php,GET,role restricted
+admin.py,180,/admin/users.php,GET/POST,role restricted
+admin.py,203,/admin/providers.php,GET/POST,role restricted
+admin.py,221,/admin/businesses.php,GET/POST,role restricted
+admin.py,239,/admin/categories.php,GET/POST,role restricted
+admin.py,267,/admin/services.php,GET/POST,role restricted
+admin.py,283,/admin/requests.php,GET,role restricted
+admin.py,290,/admin/reviews.php,GET/POST,role restricted
+admin.py,307,/admin/reports.php,GET/POST,role restricted
+admin.py,326,/admin/advertisements.php,GET/POST,role restricted
+admin.py,348,/admin/subscriptions.php,GET,role restricted
+admin.py,361,/admin/payments.php,GET,role restricted
+admin.py,375,/admin/payment-detail.php,GET/POST,role restricted
+admin.py,404,/admin/payment-methods.php,GET,role restricted
+admin.py,411,/admin/payment-method-edit.php,GET/POST,role restricted
+api.py,17,/ajax/favorite.php,POST,role restricted
+auth.py,48,/auth/login.php,GET/POST,guest
+auth.py,91,/login.php,GET,public
+auth.py,98,/auth/register.php,GET/POST,guest
+auth.py,144,/register.php,GET,public
+auth.py,161,/auth/logout.php,GET/POST,logged-in
+auth.py,167,/logout.php,GET/POST,logged-in
+auth.py,173,/auth/forgot-password.php,GET/POST,guest
+auth.py,198,/auth/reset-password.php,GET/POST,guest
+auth.py,236,/auth/resend-verification.php,GET/POST,guest
+auth.py,260,/auth/verify-email.php,GET,public
+billing.py,30,/billing/start.php,POST,role restricted
+billing.py,52,/billing/payment-method.php,GET,role restricted
+billing.py,67,/billing/select-method.php,POST,role restricted
+billing.py,85,/billing/gateway.php,GET,role restricted
+billing.py,112,/billing/gateway-return.php,POST,role restricted
+billing.py,126,/billing/manual.php,GET/POST,role restricted
+billing.py,145,/billing/history.php,GET,role restricted
+billing.py,160,/billing/cancel.php,POST,role restricted
+business.py,19,/business/dashboard.php,GET,role restricted
+business.py,35,/business/profile.php,GET/POST,role restricted
+business.py,81,/business/services.php,GET/POST,role restricted
+business.py,87,/business/requests.php,GET,role restricted
+business.py,93,/business/subscription.php,GET,role restricted
+customer.py,21,/customer/dashboard.php,GET,role restricted
+customer.py,27,/customer/requests.php,GET,role restricted
+customer.py,52,/post-requirement.php,GET/POST,role restricted
+customer.py,89,/request-service.php,GET/POST,role restricted
+customer.py,141,/favorites.php,GET,role restricted
+health.py,10,/health,GET,public
+main.py,22,/uploads/<path:filename>,GET,public
+main.py,38,/,GET,public
+main.py,38,/index.php,GET,public
+main.py,85,/categories.php,GET,public
+main.py,95,/search.php,GET,public
+main.py,154,/provider.php,GET,public
+main.py,162,/business.php,GET,public
+main.py,171,/contact.php,GET/POST,public
+main.py,203,/notifications.php,GET/POST,logged-in
+main.py,224,/reviews.php,GET/POST,logged-in
+main.py,252,/report.php,GET/POST,logged-in
+main.py,284,/request-details.php,GET/POST,logged-in
+main.py,343,/about.php,GET,public
+main.py,345,/privacy.php,GET,public
+main.py,347,/terms.php,GET,public
+provider.py,21,/provider/dashboard.php,GET,role restricted
+provider.py,38,/provider/profile.php,GET/POST,role restricted
+provider.py,82,/provider/services.php,GET/POST,role restricted
+provider.py,166,/provider/portfolio.php,GET/POST,role restricted
+provider.py,191,/provider/requests.php,GET,role restricted
+provider.py,208,/provider/available-requirements.php,GET,role restricted
+provider.py,223,/provider/subscription.php,GET,role restricted
+webhooks.py,14,/webhooks/razorpay.php,POST,public; webhook signed separately

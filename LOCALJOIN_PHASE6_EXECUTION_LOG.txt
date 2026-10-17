@@ -1,0 +1,17 @@
+$ /opt/pyvenv/bin/python -m pytest -q tests/python/test_final_recheck_static.py tests/python/test_phase3_audit_static.py tests/python/test_phase3_database_static.py tests/python/test_phase4_auth_static.py tests/python/test_phase5_functional_static.py tests/python/test_phase6_frontend_parity_static.py tests/python/test_phase7_production_static.py tests/python/test_phase8_verification_static.py tests/python/test_phase9_release_static.py tests/python/test_pre_phase8_recheck_static.py tests/python/test_phase2_navigation_regression.py tests/python/test_phase4_runtime_configuration_offline.py tests/python/test_phase4_mysql_guard_extended_offline.py tests/python/test_phase5_security_hardening_offline.py tests/python/test_phase6_migration_safety_offline.py
+...................................................... [ 39%]
+........................................................................ [ 92%]
+..........                                                               [100%]
+136 passed, 18 subtests passed in 14.67s
+exit=0
+$ /opt/pyvenv/bin/python scripts/run_offline_model_integration.py
+PASS: 32 real ORM tables SQLite execution + MySQL DDL compilation (NOT a MySQL server test); 3 roles; offering; request/history; rollback; UNIQUE email
+exit=0
+$ /opt/pyvenv/bin/python -m compileall -q app.py routes services models config utils scripts tests/python
+exit=0
+$ node --check assets/js/app.js
+exit=0
+$ node tests/js/dependent_dropdown.test.js
+PASS dependent dropdown rebuild, selection preservation, and empty states
+exit=0
+PASS: OFFLINE CHECKS ONLY. Flask and MySQL test gates are separate and mandatory.
